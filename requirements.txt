@@ -19,4 +19,4 @@ python-dotenv==1.0.0
 pytz
 seaborn==0.12.2
 six
-Werkzeug==2.3.6
+Werkzeug==3.0.2
