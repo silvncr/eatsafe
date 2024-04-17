@@ -1,0 +1,45 @@
+{% extends 'app_template.html' %}
+
+
+{% block title %}
+Admin
+{% endblock %}
+
+
+{% block page_title %}
+Admin
+{% endblock %}
+
+
+{% block current %}
+admin-link
+{% endblock %}
+
+
+{% block head %}
+<script>
+	document.addEventListener('DOMContentLoaded', (event) => {
+		document.getElementById('csv_file').addEventListener('change', (event) => {
+			var file = event.target.files[0];
+			Papa.parse(file, {
+				complete: (results) => {
+					document.getElementById('upload_button').style.display = 'block';
+					document.getElementById('upload_button').value = `Process ${results.data.length - 1} entries`;
+				}
+			});
+		});
+	});
+</script>
+{% endblock %}
+
+
+{% block body %}
+<h3>Update the database</h3>
+<p>
+<form action="{{ url_for('admin') }}" method="post" enctype="multipart/form-data">
+	<input type="file" name="csv_file" accept=".csv" id="csv_file" style="color: white;">
+	<br><br>
+	<input type="submit" value="Waiting for file..." class="btn btn-success" id="upload_button" style="display: none;">
+</form>
+</p>
+{% endblock %}

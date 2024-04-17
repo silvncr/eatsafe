@@ -1,0 +1,106 @@
+{% extends 'app_template.html' %}
+
+
+{% block title %}
+Search
+{% endblock %}
+
+
+{% block page_title %}
+Search
+{% endblock %}
+
+
+{% block current %}
+search-link
+{% endblock %}
+
+
+{% block main_head%}
+<script>
+	$(document).ready(function() {
+		$(".search").typeahead({
+			source: function(query, process) {
+				return $.get("/search", { q: query }, function(data) {
+					return process(data);
+				});
+			}
+		});
+		$(".search").focus();
+	});
+</script>
+{% endblock %}
+
+
+{% block body %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<form action="{{ url_for('search') }}" method="get">
+				<div class="input-group">
+					<input type="text" class="form-control search" name="q" placeholder="Search by name and/or address..." value="{{ query }}" autocomplete="off">
+					<span class="input-group-btn">
+						<button class="btn btn-success btn-search" type="submit">Search</button>
+					</span>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="container d-flex flex-column flex-md-row justify-content-between">
+		<h3 class="main-title">
+			Results
+		</h3>
+	</div>
+	{% for message in messages %}
+	<div class="alert alert-success alert-dismissible" role="alert">
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		{{ message['message'] }}
+	</div>
+	{% endfor %}
+	{% if results %}
+	<table>
+		<tr>
+			<th><hr></th>
+			<td><hr></td>
+			<td><hr></td>
+		</tr>
+		{% for result in results %}
+		<a onclick="">
+			<tr>
+				<th>
+					{% if result['rating'] %}
+					{% for _ in range(result['rating']) %}
+					<i class="fa fa-star"></i>
+					{% endfor %}
+					{% else %}
+					<span class="rating-not-displayed">(rating hidden)</span>
+					{% endif %}
+				</th>
+				<td>
+					<strong>{{ result['name'] }}</strong>
+					<span class="side">EatSafe ID: {{ result['id'] }}</span>
+				</td>
+			</tr>
+			<tr>
+				<th>&nbsp;</th>
+				<td>
+					{{ result['address'] }}
+				</td>
+			</tr>
+		</a>
+		<tr>
+			<th><hr></th>
+			<td><hr></td>
+			<td><hr></td>
+		</tr>
+		{% endfor %}
+	</table>
+	{% elif not query %}
+	<p>Enter a name and/or address to search.</p>
+	{% else %}
+	<p>No results found.</p>
+	{% endif %}
+</div>
+{% endblock %}

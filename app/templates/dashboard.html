@@ -1,0 +1,43 @@
+{% extends 'app_template.html' %}
+
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+
+{% block page_title %}
+Dashboard
+{% endblock %}
+
+
+{% block current %}
+dashboard-link
+{% endblock %}
+
+
+{% block body %}
+<h3>User details</h3>
+<p>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<table class="dashboard-table">
+					<tr>
+						<th><p>Username:</p>&Tab;</th>
+						<td><p><code>{{ session['username'] }}</code></p></td>
+					</tr>
+					<tr>
+						<th><p>Email:</p>&Tab;</th>
+						<td><p><code>{{ session['email'] }}</code></p></td>
+					</tr>
+					<tr>
+						<th><p>Phone:</p>&Tab;</th>
+						<td><p><code>{{ session['phone'] }}</code></p></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</p>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'account_template.html' %}
+
+
+{% block title %}
+Register
+{% endblock %}
+
+
+{% block body %}
+<p>Please enter your details:</p>
+<form class="form-group" action="{{ url_for('register') }}" method="post" autocomplete="off">
+	<input autocomplete="false" name="hidden" type="text" style="display:none;">
+	<div class="form-horizontal">
+		<div class="form-row">
+			<input type="email" class="form-control" name="email" value="{{ form_data['email'] if form_data else '' }}" placeholder="Email" id="email" required>
+			<input type="phone" class="form-control" name="phone" value="{{ form_data['phone'] if form_data else '' }}" placeholder="Phone Number" id="phone" required>
+		</div>
+	</div>
+	<div class="form-horizontal">
+		<div class="form-row">
+			<input type="text" class="form-control" name="username" value="{{ form_data['username'] if form_data else '' }}" placeholder="Username" id="username" required>
+			<input type="password" class="form-control" name="password" placeholder="Password" id="password" required>
+		</div>
+	</div>
+	<input type="submit" value="Register" class="form-control btn btn-success" name="register">
+</form>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-failure alert-dismissible fade show" role="alert">
+	<i class="fas fa-triangle-exclamation"></i>
+	{{ message }}
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+<p><a href="{{ url_for('login') }}">[Already have an account?]</a></p>
+{% endblock %}

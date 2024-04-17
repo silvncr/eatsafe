@@ -1,0 +1,48 @@
+<!-- template -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<!-- meta tags -->
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- branded title -->
+	<title>{% block main_title %}{% endblock %} - EatSafe</title>
+
+	<!-- favicon -->
+	<link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+	<!-- globals -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='styles/globals.css') }}">
+	<script src="{{ url_for('static', filename='scripts/globals.js') }}"></script>
+
+	<!-- bootstrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+	<!-- jquery -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- fontawesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.5.1/css/all.css">
+
+	<!-- papaparse -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+
+	<!-- custom -->
+	{% block main_head %}{% endblock %}
+
+</head>
+
+<!-- body -->
+<body>
+
+{% block main_body %}{% endblock %}
+
+<footer></footer>
+
+</body>
+
+</html>

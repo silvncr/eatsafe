@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+
+{% block main_title %}
+{% block title %}{% endblock %}
+{% endblock %}
+
+
+{% block main_head %}
+{% block head %}{% endblock %}
+{% endblock %}
+
+
+{% block main_body %}
+<div class="account-box">
+	<div class="account-header">
+		{{ self.title() }}
+	</div>
+	<div class="account-body">
+		{% block body %}{% endblock %}
+	</div>
+</div>
+{% endblock %}

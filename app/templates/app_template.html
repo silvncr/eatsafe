@@ -1,0 +1,85 @@
+<!-- subtemplate -->
+{% extends "layout.html" %}
+
+
+{% block main_title %}
+{% block title %}{% endblock %}
+{% endblock %}
+
+
+{% block main_head %}
+<script>
+	current = $(document.getElementById("{% block current %}{% endblock %}"));
+	current.classList.add("active");
+	current.setAttribute("aria-current", "page");
+	current.setAttribute("aria-label", "current page");
+	current.innerHTML += `<span class="sr-only">(current)</span>)`;
+</script>
+{% block head %}{% endblock %}
+{% endblock %}
+
+
+{% block main_body %}
+<nav class="site-header sticky-top py-1" aria-label="Main Navigation">
+	<div class="container d-flex flex-column flex-md-row justify-content-between">
+		<h1 class="main-title">{% block page_title %}{% endblock %}</h1>
+	</div>
+</nav>
+<div class="container-fluid">
+	<div class="row">
+		<nav class="col-md-2 d-none d-md-block sidebar" aria-label="Main Navigation">
+			<div class="sidebar-sticky">
+				<span class="sr-only">Navigation</span>
+				<ul class="nav flex-column">
+					<li class="nav-item"></li>
+					{% if session['role'] == 'admin' %}
+					<li class="nav-item">
+						<a class="nav-link" href="{{ url_for('admin') }}" id="admin-link">
+							<i class="fas fa-hammer"></i>
+							Admin
+						</a>
+					</li>
+					{% endif %}
+					{% if logged_in %}
+					<li class="nav-item">
+						<a class="nav-link" href="{{ url_for('dashboard') }}" id="dashboard-link">
+							<i class="fas fa-home-user"></i>
+							Dashboard
+						</a>
+					</li>
+					{% endif %}
+					<li class="nav-item">
+						<a class="nav-link" href="{{ url_for('search') }}" id="search-link">
+							<i class="fas fa-magnifying-glass-location"></i>
+							Search
+						</a>
+					</li>
+					{% if logged_in %}
+					<li class="nav-item">
+						<a class="nav-link" href="{{ url_for('logout') }}" id="logout-link">
+							<i class="fas fa-sign-out-alt"></i>
+							Logout
+						</a>
+					</li>
+					{% else %}
+					<li class="nav-item">
+						<a class="nav-link" href="{{ url_for('login') }}" id="login-link">
+							<i class="fas fa-sign-in-alt"></i>
+							Login
+						</a>
+					</li>
+					{% endif %}
+				</ul>
+			</div>
+		</nav>
+		<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+			<div
+				class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+				<div class="col-12">
+					{% block body %}{% endblock %}
+				</div>
+			</div>
+		</main>
+	</div>
+</div>
+{% endblock %}

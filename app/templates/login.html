@@ -1,0 +1,48 @@
+{% extends 'account_template.html' %}
+
+
+{% block title %}
+Login
+{% endblock %}
+
+
+{% block body %}
+<p>Please enter your username and password:</p>
+<form class="form-group" action="{{ url_for('login') }}" method="post" autocomplete="off">
+	<input autocomplete="false" name="hidden" type="text" style="display:none;">
+	<div class="form-horizontal">
+		<div class="form-row">
+			<input type="text" class="form-control" name="username" value="{{ username_temp }}" placeholder="Username" id="username" required>
+		</div>
+	</div>
+	<div class="form-horizontal">
+		<div class="form-row">
+			<input type="password" class="form-control" name="password" placeholder="Password" id="password" required>
+		</div>
+	</div>
+	<input type="checkbox" value="checked"> <b>Remember Me</b>
+	<br>
+	<input type="submit" value="Login" class="form-control btn btn-success" name="login">
+</form>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+	<i class="fas fa-check"></i>
+	{{ message }}
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+<p>You can also <a href="{{ url_for('register') }}">[Register]</a> or <a href="{{ url_for('search') }}">[Go Back]</a>.</p>
+{% endblock %}
+
+<script>
+	$(document).ready(() => {
+		{% if email_temp %}
+		$("#password").focus();
+		{% else %}
+		$("#email").focus();
+		{% endif %}
+	});
+</script>
